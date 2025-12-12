@@ -1,0 +1,39 @@
+{
+  "holdings": [
+    { "symbol": "TCS", "qty": 5, "avgPrice": 3200, "currentPrice": 3500 },
+    { "symbol": "INFY", "qty": 10, "avgPrice": 1400, "currentPrice": 1500 },
+    { "symbol": "HDFCBANK", "qty": 7, "avgPrice": 1500, "currentPrice": 1550 }
+  ],
+  "details": {
+    "TCS": {
+      "symbol": "TCS",
+      "companyName": "Tata Consultancy Services",
+      "qty": 5,
+      "avgPrice": 3200,
+      "currentPrice": 3500,
+      "changes": { "day": 1.25, "week": 2.8, "month": 5.3 },
+      "priceHistory": [3200, 3225, 3300, 3350, 3400, 3450, 3500],
+      "insight": "TCS has shown consistent upward movement this month due to strong quarterly results and steady deal wins."
+    },
+    "INFY": {
+      "symbol": "INFY",
+      "companyName": "Infosys Limited",
+      "qty": 10,
+      "avgPrice": 1400,
+      "currentPrice": 1500,
+      "changes": { "day": -0.5, "week": 1.2, "month": 3.5 },
+      "priceHistory": [1400, 1410, 1425, 1430, 1450, 1480, 1500],
+      "insight": "Infosys experienced minor intraday weakness but overall positive momentum across the month."
+    },
+    "HDFCBANK": {
+      "symbol": "HDFCBANK",
+      "companyName": "HDFC Bank Limited",
+      "qty": 7,
+      "avgPrice": 1500,
+      "currentPrice": 1550,
+      "changes": { "day": 0.75, "week": 1.5, "month": 2.0 },
+      "priceHistory": [1500, 1510, 1520, 1535, 1540, 1545, 1550],
+      "insight": "HDFC Bank remains steady; moderate growth driven by stable loan growth and steady NIMs."
+    }
+  }
+}
