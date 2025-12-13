@@ -30,44 +30,6 @@
 - **fl_chart** – price history charts
 - **Local JSON** – mock data (no backend)
 
-## 📁 Project Structure
-
-lib/
-├── models/
-│ ├── stock.dart
-│ └── market_summary.dart
-│
-├── providers/
-│ ├── portfolio_provider.dart
-│ └── theme_provider.dart
-│
-├── screens/
-│ ├── portfolio_screen.dart
-│ └── stock_detail_screen.dart
-│
-├── widgets/
-│ ├── stock_tile.dart
-│ ├── market_summary_bar.dart
-│ ├── portfolio_summary_card.dart
-│ └── price_chart.dart
-│
-└── main.dart
-assets/
-├── data/
-│ └── mock_data.json
-└── logos/
-├── tcs.png
-├── infy.png
-└── hdfcbank.png
-
-
-Includes:
-- Holdings
-- Stock-level details
-- Price history
-- AI insights
-
----
 
 ## Getting Started
 
@@ -95,22 +57,30 @@ Includes:
    flutter run
    ```
 
+## Screenshots
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/fb79b67f-c8ab-4314-a0c2-931333254e8d" width="70%"></td>
+    <td><img src="https://github.com/user-attachments/assets/759d6e0c-6b95-443a-a371-079debfae8a9" width="70%"></td>
+  </tr>
+</table>
+
 ## Privacy Mode
-Users can toggle visibility of portfolio values:
-Eye open → show currency values
-Eye closed → hide values, show only percentages
+- Users can toggle visibility of portfolio values:
+- Eye open → show currency values
+- Eye closed → hide values, show only percentages
 
 This mimics real-world finance apps and improves user privacy.
 
 ## Notes & Assumptions
-Static mock data (no backend)
-No authentication
-Focus on UI/UX, chart accuracy, and clean architecture
-Designed for evaluation and extensibility
+- Static mock data (no backend)
+- No authentication
+- Focus on UI/UX, chart accuracy, and clean architecture
+- Designed for evaluation and extensibility
 
 ## Future Improvements
-Live market data integration
-Persistent theme & privacy state
-Interactive chart tooltips
-Stock search & filtering
-Portfolio analytics
+- Live market data integration
+- Persistent theme & privacy state
+- Interactive chart tooltips
+- Stock search & filtering
+- Portfolio analytics
