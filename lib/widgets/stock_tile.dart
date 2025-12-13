@@ -27,14 +27,26 @@ class StockTile extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             leading: Hero(
               tag: 'symbol-${stock.symbol}',
-              child: CircleAvatar(
-                radius: 22,
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                foregroundColor:
-                    Theme.of(context).colorScheme.onPrimaryContainer,
-                child: Text(
-                  stock.symbol[0],
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+              child: SizedBox(
+                width: 44,
+                height: 44,
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/logos/${stock.symbol.toLowerCase()}.jpg',
+                      width: 36,
+                      height: 36,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Text(
+                        stock.symbol[0],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

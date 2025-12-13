@@ -7,6 +7,7 @@ class Stock {
   final Map<String, double>? changes;
   final List<double>? priceHistory;
   final String? insight;
+  final String? logo;
 
   Stock({
     required this.symbol,
@@ -17,6 +18,7 @@ class Stock {
     this.changes,
     this.priceHistory,
     this.insight,
+    this.logo,
   });
 
   double get pnlPercent {
