@@ -26,7 +26,6 @@ class _StockDetailScreenState extends State<StockDetailScreen>
     _slide = Tween<Offset>(begin: const Offset(0, 0.04), end: Offset.zero)
         .animate(
             CurvedAnimation(parent: _animController, curve: Curves.easeOut));
-    // start slightly delayed for nicer effect
     Future.delayed(const Duration(milliseconds: 60), () {
       if (mounted) _animController.forward();
     });

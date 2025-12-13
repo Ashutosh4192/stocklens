@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 class PriceChart extends StatelessWidget {
   final List<double> prices;
 
-  const PriceChart({Key? key, required this.prices}) : super(key: key);
+  const PriceChart({super.key, required this.prices});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,9 @@ class PriceChart extends StatelessWidget {
     final rawMin = prices.reduce((a, b) => a < b ? a : b);
     final rawMax = prices.reduce((a, b) => a > b ? a : b);
 
-    // 1️⃣ Clean tick bounds
     final tickMin = (rawMin / 100).floor() * 100.0;
     final tickMax = (rawMax / 100).ceil() * 100.0;
 
-    // 2️⃣ Explicit tick values
     final ticks = <double>[
       tickMin,
       tickMin + (tickMax - tickMin) / 3,
@@ -27,7 +25,6 @@ class PriceChart extends StatelessWidget {
       tickMax,
     ];
 
-    // 3️⃣ Visual padding ONLY
     final padding = (tickMax - tickMin) * 0.06;
     final minY = tickMin - padding;
     final maxY = tickMax + padding;
@@ -67,7 +64,6 @@ class PriceChart extends StatelessWidget {
                 reservedSize: 44,
                 interval: (tickMax - tickMin) / 3,
                 getTitlesWidget: (value, _) {
-                  // 🔒 ONLY show clean ticks
                   if (!ticks.any((t) => (t - value).abs() < 0.5)) {
                     return const SizedBox.shrink();
                   }
@@ -90,7 +86,6 @@ class PriceChart extends StatelessWidget {
 
           borderData: FlBorderData(show: false),
 
-          // ───────── Line ─────────
           lineBarsData: [
             LineChartBarData(
               spots: spots,
