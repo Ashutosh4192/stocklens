@@ -132,7 +132,7 @@ class PortfolioSummaryCard extends StatelessWidget {
                 Expanded(
                   child: Text('HOLDINGS (${holdings.length})',
                       style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 17,
                           fontWeight: FontWeight.w800,
                           color: Theme.of(context)
                               .textTheme

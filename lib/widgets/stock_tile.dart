@@ -59,7 +59,10 @@ class StockTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text('₹${stock.currentPrice.toStringAsFixed(0)}',
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    )),
                 const SizedBox(height: 6),
                 Text('${pnl.toStringAsFixed(2)}%',
                     style: TextStyle(

@@ -75,11 +75,41 @@ class _StockDetailScreenState extends State<StockDetailScreen>
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
             Hero(
-                tag: 'symbol-${stock.symbol}',
+              tag: 'symbol-${stock.symbol}',
+              child: Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
                 child: CircleAvatar(
-                    radius: 30,
-                    child: Text(stock.symbol[0],
-                        style: const TextStyle(fontWeight: FontWeight.bold)))),
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/logos/${stock.symbol.toLowerCase()}.jpg',
+                      width: 52,
+                      height: 52,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Text(
+                        stock.symbol[0],
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(width: 12),
             Expanded(
                 child: Column(

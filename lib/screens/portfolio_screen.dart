@@ -64,7 +64,28 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Portfolio'),
+        title: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: 'Stock',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+              TextSpan(
+                text: 'Lens',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+            ],
+          ),
+        ),
         actions: [
           Consumer<ThemeProvider>(builder: (context, t, __) {
             return IconButton(

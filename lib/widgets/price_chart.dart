@@ -4,38 +4,59 @@ import 'package:fl_chart/fl_chart.dart';
 class PriceChart extends StatelessWidget {
   final List<double> prices;
 
-  const PriceChart({super.key, required this.prices});
+  const PriceChart({Key? key, required this.prices}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final spots = <FlSpot>[
-      for (int i = 0; i < prices.length; i++) FlSpot(i.toDouble(), prices[i])
+    final spots = [
+      for (int i = 0; i < prices.length; i++) FlSpot(i.toDouble(), prices[i]),
     ];
 
-    final minY = prices.reduce((a, b) => a < b ? a : b);
-    final maxY = prices.reduce((a, b) => a > b ? a : b);
+    final rawMin = prices.reduce((a, b) => a < b ? a : b);
+    final rawMax = prices.reduce((a, b) => a > b ? a : b);
 
-    // Add padding so line does not touch the borders
-    final range = maxY - minY;
+    // 1️⃣ Clean tick bounds
+    final tickMin = (rawMin / 100).floor() * 100.0;
+    final tickMax = (rawMax / 100).ceil() * 100.0;
 
-    final List<double> ticks = _generateTicks(minY, maxY);
+    // 2️⃣ Explicit tick values
+    final ticks = <double>[
+      tickMin,
+      tickMin + (tickMax - tickMin) / 3,
+      tickMin + 2 * (tickMax - tickMin) / 3,
+      tickMax,
+    ];
+
+    // 3️⃣ Visual padding ONLY
+    final padding = (tickMax - tickMin) * 0.06;
+    final minY = tickMin - padding;
+    final maxY = tickMax + padding;
+
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final lineColor = Theme.of(context).colorScheme.primary;
 
     return AspectRatio(
-      aspectRatio: 1.6,
+      aspectRatio: 1.7,
       child: LineChart(
         LineChartData(
-          minY: ticks.first,
-          maxY: ticks.last,
+          minY: minY,
+          maxY: maxY,
+
+          // ───────── Grid ─────────
           gridData: FlGridData(
             show: true,
-            horizontalInterval:
-                (ticks.length > 1) ? (ticks[1] - ticks[0]) : range / 3,
-            getDrawingHorizontalLine: (value) => FlLine(
-              color: Colors.grey.withOpacity(0.3),
+            drawVerticalLine: false,
+            horizontalInterval: (tickMax - tickMin) / 3,
+            getDrawingHorizontalLine: (_) => FlLine(
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withOpacity(isDark ? 0.08 : 0.12),
               strokeWidth: 1,
             ),
-            drawVerticalLine: false,
           ),
+
+          // ───────── Axis labels ─────────
           titlesData: FlTitlesData(
             topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
             rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -43,65 +64,58 @@ class PriceChart extends StatelessWidget {
             leftTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
-                reservedSize: 42,
-                interval:
-                    (ticks.length > 1) ? (ticks[1] - ticks[0]) : range / 3,
-                getTitlesWidget: (value, meta) {
-                  if (!ticks.contains(value)) return const SizedBox.shrink();
+                reservedSize: 44,
+                interval: (tickMax - tickMin) / 3,
+                getTitlesWidget: (value, _) {
+                  // 🔒 ONLY show clean ticks
+                  if (!ticks.any((t) => (t - value).abs() < 0.5)) {
+                    return const SizedBox.shrink();
+                  }
 
                   return Text(
-                    _formatAsK(value),
+                    '${(value / 1000).toStringAsFixed(1)}K',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey.shade400,
                       fontWeight: FontWeight.w600,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.6),
                     ),
                   );
                 },
               ),
             ),
           ),
+
           borderData: FlBorderData(show: false),
+
+          // ───────── Line ─────────
           lineBarsData: [
             LineChartBarData(
               spots: spots,
               isCurved: true,
-              color: Theme.of(context).primaryColor,
+              curveSmoothness: 0.35,
               barWidth: 3,
+              color: lineColor,
               dotData: FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
                 gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).primaryColor.withOpacity(0.20),
-                    Colors.transparent,
-                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
+                  colors: [
+                    lineColor.withOpacity(isDark ? 0.25 : 0.20),
+                    Colors.transparent,
+                  ],
                 ),
               ),
-            )
+            ),
           ],
         ),
+        swapAnimationDuration: const Duration(milliseconds: 450),
+        swapAnimationCurve: Curves.easeOutCubic,
       ),
     );
-  }
-
-  static List<double> _generateTicks(double minY, double maxY) {
-    final roundedMin = ((minY / 100).floor() * 100).toDouble();
-    final roundedMax = ((maxY / 100).ceil() * 100).toDouble();
-
-    final ticks = <double>[];
-    for (double v = roundedMin; v <= roundedMax; v += 100.0) {
-      ticks.add(v);
-    }
-
-    return ticks;
-  }
-
-  /// Format like 1500 → "1.5K"
-  static String _formatAsK(double value) {
-    final num = value / 1000;
-    return '${num.toStringAsFixed(1)}K';
   }
 }
